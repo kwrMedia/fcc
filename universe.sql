@@ -44,23 +44,23 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: g_star; Type: TABLE; Schema: public; Owner: freecodecamp
+-- Name: colors; Type: TABLE; Schema: public; Owner: freecodecamp
 --
 
-CREATE TABLE public.g_star (
-    g_star_id integer NOT NULL,
-    galaxy_id integer NOT NULL,
-    star_id integer NOT NULL
+CREATE TABLE public.colors (
+    colors_id integer NOT NULL,
+    twinkles boolean,
+    name character varying(30) NOT NULL
 );
 
 
-ALTER TABLE public.g_star OWNER TO freecodecamp;
+ALTER TABLE public.colors OWNER TO freecodecamp;
 
 --
--- Name: g_star_g_star_id_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
+-- Name: colors_color_id_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
 --
 
-CREATE SEQUENCE public.g_star_g_star_id_seq
+CREATE SEQUENCE public.colors_color_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -69,13 +69,13 @@ CREATE SEQUENCE public.g_star_g_star_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.g_star_g_star_id_seq OWNER TO freecodecamp;
+ALTER TABLE public.colors_color_id_seq OWNER TO freecodecamp;
 
 --
--- Name: g_star_g_star_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
+-- Name: colors_color_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
 --
 
-ALTER SEQUENCE public.g_star_g_star_id_seq OWNED BY public.g_star.g_star_id;
+ALTER SEQUENCE public.colors_color_id_seq OWNED BY public.colors.colors_id;
 
 
 --
@@ -84,7 +84,7 @@ ALTER SEQUENCE public.g_star_g_star_id_seq OWNED BY public.g_star.g_star_id;
 
 CREATE TABLE public.galaxy (
     galaxy_id integer NOT NULL,
-    name character varying(20),
+    name character varying(20) NOT NULL,
     description text,
     has_life boolean,
     galaxy_types text
@@ -121,7 +121,7 @@ ALTER SEQUENCE public.galaxy_galaxy_id_seq OWNED BY public.galaxy.galaxy_id;
 
 CREATE TABLE public.moon (
     moon_id integer NOT NULL,
-    name character varying(20),
+    name character varying(20) NOT NULL,
     planet_id integer,
     is_spherical boolean,
     distance_from_earth integer
@@ -158,7 +158,7 @@ ALTER SEQUENCE public.moon_moon_id_seq OWNED BY public.moon.moon_id;
 
 CREATE TABLE public.planet (
     planet_id integer NOT NULL,
-    name character varying(20),
+    name character varying(20) NOT NULL,
     star_id integer,
     distance_from_earth integer,
     age_in_millions_of_years numeric
@@ -195,7 +195,7 @@ ALTER SEQUENCE public.planet_planet_id_seq OWNED BY public.planet.planet_id;
 
 CREATE TABLE public.star (
     star_id integer NOT NULL,
-    name character varying(20),
+    name character varying(20) NOT NULL,
     distance_from_earth integer,
     color text,
     galaxy_id integer
@@ -227,10 +227,10 @@ ALTER SEQUENCE public.star_star_id_seq OWNED BY public.star.star_id;
 
 
 --
--- Name: g_star g_star_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
+-- Name: colors colors_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
 --
 
-ALTER TABLE ONLY public.g_star ALTER COLUMN g_star_id SET DEFAULT nextval('public.g_star_g_star_id_seq'::regclass);
+ALTER TABLE ONLY public.colors ALTER COLUMN colors_id SET DEFAULT nextval('public.colors_color_id_seq'::regclass);
 
 
 --
@@ -262,9 +262,12 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 
 
 --
--- Data for Name: g_star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
+-- Data for Name: colors; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.colors VALUES (1, true, 'red');
+INSERT INTO public.colors VALUES (2, false, 'yellow');
+INSERT INTO public.colors VALUES (3, true, 'orange');
 
 
 --
@@ -283,6 +286,27 @@ INSERT INTO public.galaxy VALUES (6, 'Worble', 'Result of multi galaxy collision
 -- Data for Name: moon; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.moon VALUES (1, 'The Moon', 3, true, 10);
+INSERT INTO public.moon VALUES (2, 'Phoboes', 4, false, 23);
+INSERT INTO public.moon VALUES (3, 'Titan', 9, true, 77);
+INSERT INTO public.moon VALUES (4, 'Gnar', 5, false, 80);
+INSERT INTO public.moon VALUES (5, 'Flair', 5, true, 79);
+INSERT INTO public.moon VALUES (6, 'Pronto', 8, false, 500);
+INSERT INTO public.moon VALUES (7, 'GGD-643', 12, false, 46);
+INSERT INTO public.moon VALUES (8, 'Mounds', 7, true, 69);
+INSERT INTO public.moon VALUES (9, 'Argo', 6, false, 999);
+INSERT INTO public.moon VALUES (10, 'Bloop', 5, true, 33);
+INSERT INTO public.moon VALUES (11, 'Flarp', 8, false, 477);
+INSERT INTO public.moon VALUES (12, 'Markety', 11, true, 37);
+INSERT INTO public.moon VALUES (13, 'Big Bright One', 9, true, 25);
+INSERT INTO public.moon VALUES (14, 'Snipper', 6, false, 998);
+INSERT INTO public.moon VALUES (15, 'Koopa', 11, false, 40);
+INSERT INTO public.moon VALUES (16, 'Kingdom', 7, true, 68);
+INSERT INTO public.moon VALUES (17, 'Pocker', 5, false, 99);
+INSERT INTO public.moon VALUES (18, 'Starry McStar', 4, true, 6);
+INSERT INTO public.moon VALUES (19, 'Shiney
+', 5, false, 96);
+INSERT INTO public.moon VALUES (20, 'Dunnit', 12, true, 51);
 
 
 --
@@ -316,10 +340,10 @@ INSERT INTO public.star VALUES (6, 'Gosling', 69, 'blue', 5);
 
 
 --
--- Name: g_star_g_star_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
+-- Name: colors_color_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.g_star_g_star_id_seq', 1, false);
+SELECT pg_catalog.setval('public.colors_color_id_seq', 2, true);
 
 
 --
@@ -351,11 +375,19 @@ SELECT pg_catalog.setval('public.star_star_id_seq', 1, true);
 
 
 --
--- Name: g_star g_star_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+-- Name: colors colors_name_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
 --
 
-ALTER TABLE ONLY public.g_star
-    ADD CONSTRAINT g_star_pkey PRIMARY KEY (galaxy_id, star_id);
+ALTER TABLE ONLY public.colors
+    ADD CONSTRAINT colors_name_key UNIQUE (name);
+
+
+--
+-- Name: colors colors_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.colors
+    ADD CONSTRAINT colors_pkey PRIMARY KEY (colors_id);
 
 
 --
@@ -423,22 +455,6 @@ ALTER TABLE ONLY public.star
 
 
 --
--- Name: g_star g_star_galaxy_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
---
-
-ALTER TABLE ONLY public.g_star
-    ADD CONSTRAINT g_star_galaxy_id_fkey FOREIGN KEY (galaxy_id) REFERENCES public.galaxy(galaxy_id);
-
-
---
--- Name: g_star g_star_star_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
---
-
-ALTER TABLE ONLY public.g_star
-    ADD CONSTRAINT g_star_star_id_fkey FOREIGN KEY (star_id) REFERENCES public.star(star_id);
-
-
---
 -- Name: moon moon_planet_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
 --
 
@@ -452,6 +468,14 @@ ALTER TABLE ONLY public.moon
 
 ALTER TABLE ONLY public.planet
     ADD CONSTRAINT planet_star_id_fkey FOREIGN KEY (star_id) REFERENCES public.star(star_id);
+
+
+--
+-- Name: star star_galaxy_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT star_galaxy_id_fkey FOREIGN KEY (galaxy_id) REFERENCES public.galaxy(galaxy_id);
 
 
 --
